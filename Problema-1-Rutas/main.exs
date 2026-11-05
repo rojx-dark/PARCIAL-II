@@ -84,6 +84,66 @@ defmodule Main do
     {validos, errores}
   end
 
+  # Procesamiento de consultas
+
+  defp procesar_consultas(ruta_consultas, grafo, centros, carpeta_salidas) do
+    ruta_it = Path.join(carpeta_salidas, "itinerarios.txt")
+    ruta_alc = Path.join(carpeta_salidas, "alcance_centros.txt")
+
+    Reportes.limpiar_archivo(ruta_it)
+    Reportes.limpiar_archivo(ruta_alc)
+
+    ruta_consultas
+    |> leer_lineas_stream()
+    |> Stream.map(&parsear_consulta/1)
+    |> Enum.each(fn consulta ->
+      atender_consulta(consulta, grafo, centros, ruta_it, ruta_alc)
+    end)
+  end
+
+  defp parsear_consulta({linea, texto}) do
+    case texto |> String.split(",") |> Enum.map(&String.trim/1) do
+      [origen, destino] when origen != "" and destino != "" -> {:ok, {origen, destino}}
+      _ -> {:error, linea, texto}
+    end
+  end
+
+  defp atender_consulta({:error, linea, texto}, _grafo, _centros, ruta_it, _ruta_alc) do
+    Reportes.registrar_consulta_invalida(ruta_it, linea, texto)
+  end
+
+  defp atender_consulta({:ok, pareja}, grafo, centros, ruta_it, ruta_alc) do
+    case verificar_centros_consulta(pareja, centros) do
+      :ok -> buscar_y_registrar(pareja, grafo, ruta_it, ruta_alc)
+      {:error, centro_faltante} -> Reportes.registrar_centro_inexistente(ruta_it, ruta_alc, pareja, centro_faltante)
+    end
+  end
+
+  defp verificar_centros_consulta({origen, destino}, centros) do
+    cond do
+      not MapSet.member?(centros, origen) -> {:error, origen}
+      not MapSet.member?(centros, destino) -> {:error, destino}
+      true -> :ok
+    end
+  end
+
+  defp buscar_y_registrar({origen, destino} = pareja, grafo, ruta_it, ruta_alc) do
+    {_estados, _paso, alcanzados} = resultado_alcance = Red.calcular_alcance(grafo, origen)
+    alcanzable? = MapSet.member?(alcanzados, destino)
+
+    Reportes.registrar_alcance(ruta_alc, pareja, resultado_alcance, alcanzable?)
+    registrar_resultado_busqueda(alcanzable?, pareja, grafo, ruta_it)
+  end
+
+  defp registrar_resultado_busqueda(true, {origen, destino} = pareja, grafo, ruta_it) do
+    itinerarios = Red.buscar_itinerarios(grafo, origen, destino)
+    Reportes.registrar_itinerarios(ruta_it, pareja, itinerarios)
+  end
+
+  defp registrar_resultado_busqueda(false, pareja, _grafo, ruta_it) do
+    Reportes.registrar_sin_itinerarios(ruta_it, pareja)
+  end
+
   # Verificación recursiva de archivos de entrada
 
   defp verificar_archivos(rutas) do
@@ -105,3 +165,5 @@ defmodule Main do
     end)
   end
 end
+
+Main.main()
