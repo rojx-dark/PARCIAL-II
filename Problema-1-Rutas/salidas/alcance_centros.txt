@@ -1,0 +1,11 @@
+=== A → D ===
+Paso 0: {A}
+Paso 1: {A, B, C}
+Paso 2: {A, B, C, D}
+Se estabiliza en el paso 2 (destino D alcanzable)
+
+=== B → A ===
+Paso 0: {B}
+Paso 1: {B, C, D}
+Se estabiliza en el paso 1 (destino A no alcanzable: sin itinerarios)
+
