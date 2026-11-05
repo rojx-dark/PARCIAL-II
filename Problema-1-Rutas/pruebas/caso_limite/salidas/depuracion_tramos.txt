@@ -1,0 +1,1 @@
+Línea 3: C,C,2,2 -> sale y llega al mismo centro (C)

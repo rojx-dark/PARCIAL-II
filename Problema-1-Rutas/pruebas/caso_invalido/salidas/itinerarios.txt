@@ -1,0 +1,12 @@
+=== A → D ===
+Itinerario 1: A → B → C → D | tramos: 3 | 16 min | costo: 8
+Total: 1 itinerarios
+Menos tramos: 1
+Menor tiempo: 1
+Menor costo: 1
+
+=== A → Z ===
+El centro Z no existe en la red
+
+Consulta inválida en línea 4: B
+

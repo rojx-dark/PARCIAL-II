@@ -1,0 +1,2 @@
+Línea 8: C,C,4,1 -> sale y llega al mismo centro (C)
+Línea 9: B,C,9,8 -> repetición de la pareja B,C (se conserva la de la línea 7)

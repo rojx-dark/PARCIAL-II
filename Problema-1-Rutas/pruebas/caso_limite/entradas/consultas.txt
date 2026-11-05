@@ -1,0 +1,5 @@
+# Un único tramo directo y centro sin salida tras depurar bucle
+A,B
+B,A
+C,A
+

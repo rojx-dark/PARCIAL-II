@@ -1,0 +1,13 @@
+=== A → B ===
+Itinerario 1: A → B | tramos: 1 | 1 min | costo: 1
+Total: 1 itinerarios
+Menos tramos: 1
+Menor tiempo: 1
+Menor costo: 1
+
+=== B → A ===
+sin itinerarios
+
+=== C → A ===
+sin itinerarios
+

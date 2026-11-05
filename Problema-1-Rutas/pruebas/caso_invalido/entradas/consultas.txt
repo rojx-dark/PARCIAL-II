@@ -1,0 +1,5 @@
+# Consultas con centros existentes, inexistentes y mal formadas
+A,D
+A,Z
+B
+

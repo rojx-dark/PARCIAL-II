@@ -1,0 +1,10 @@
+=== A → D ===
+Paso 0: {A}
+Paso 1: {A, B}
+Paso 2: {A, B, C}
+Paso 3: {A, B, C, D}
+Se estabiliza en el paso 3 (destino D alcanzable)
+
+=== A → Z ===
+El centro Z no existe en la red
+

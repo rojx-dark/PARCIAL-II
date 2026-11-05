@@ -1,0 +1,4 @@
+Línea 3: B,C,diez,4 -> minutos no es un entero válido (diez)
+Línea 4: C,D,-3,2 -> minutos debe ser un entero positivo (recibido: -3)
+Línea 5: A,C,6 -> formato inválido: se esperan 4 campos (origen,destino,minutos,costo)
+Línea 6: ,D,5,2 -> origen vacío
