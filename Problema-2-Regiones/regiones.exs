@@ -90,4 +90,42 @@ defmodule Regiones do
     [{fila - 1, col}, {fila + 1, col}, {fila, col - 1}, {fila, col + 1}]
   end
 
+
+  # Calcula área, perímetro y caja envolvente {fila_min, col_min} a {fila_max, col_max}.
+  defp construir_region(id, simbolo, celdas, mapa) do
+    filas = Enum.map(celdas, fn {f, _c} -> f end)
+    columnas = Enum.map(celdas, fn {_f, c} -> c end)
+
+    perimetro =
+      celdas
+      |> Enum.map(fn pos ->
+        pos
+        |> vecinos_ortogonales()
+        |> Enum.count(fn vecino -> Map.get(mapa.celdas, vecino) != simbolo end)
+      end)
+      |> Enum.sum()
+
+    %Region{
+      id: id,
+      simbolo: simbolo,
+      celdas: celdas,
+      area: length(celdas),
+      perimetro: perimetro,
+      desde: {Enum.min(filas), Enum.min(columnas)},
+      hasta: {Enum.max(filas), Enum.max(columnas)}
+    }
+  end
+
+  # Obtiene el valor máximo y todas las regiones que empatan en ese máximo (:area o :perimetro).
+  def obtener_maximos([], _campo), do: {0, []}
+
+  def obtener_maximos(regiones, campo) do
+    maximo =
+      regiones
+      |> Enum.map(fn region -> Map.get(region, campo) end)
+      |> Enum.max()
+
+    empatadas = Enum.filter(regiones, fn region -> Map.get(region, campo) == maximo end)
+    {maximo, empatadas}
+  end
 end
