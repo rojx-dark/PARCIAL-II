@@ -9,6 +9,36 @@
 defmodule Tramo do
   defstruct origen: "", destino: "", minutos: 0, costo: 0, linea: 0, contenido: ""
 
+  # Recibe una línea como texto o como tupla {numero_linea, texto}
+  # y retorna {:ok, %Tramo{}} o {:error, motivo}.
+  def parse({linea, texto}) do
+    case parse(texto) do
+      {:ok, tramo} -> {:ok, %Tramo{tramo | linea: linea, contenido: texto}}
+      {:error, motivo} -> {:error, motivo}
+    end
+  end
+
+  def parse(texto) do
+    campos =
+      texto
+      |> String.split(",")
+      |> Enum.map(&String.trim/1)
+
+    with {:ok, [origen, destino, min_txt, costo_txt]} <- validar_cantidad_campos(campos),
+         {:ok, origen} <- validar_centro(origen, "origen"),
+         {:ok, destino} <- validar_centro(destino, "destino"),
+         {:ok, minutos} <- validar_entero_positivo(min_txt, "minutos"),
+         {:ok, costo} <- validar_entero_positivo(costo_txt, "costo") do
+      {:ok,
+       %Tramo{
+         origen: origen,
+         destino: destino,
+         minutos: minutos,
+         costo: costo,
+         contenido: texto
+       }}
+    end
+  end
 
   defp validar_cantidad_campos([_, _, _, _] = campos), do: {:ok, campos}
 
@@ -30,5 +60,4 @@ defmodule Tramo do
         {:error, "#{nombre_campo} no es un entero válido (#{texto})"}
     end
   end
-
 end
