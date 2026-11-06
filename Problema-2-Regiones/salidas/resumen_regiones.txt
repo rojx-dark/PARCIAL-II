@@ -1,0 +1,3 @@
+Total de regiones: 4
+Mayor área (5): región 3 (C)
+Mayor perímetro (12): región 3 (C)
