@@ -1,0 +1,5 @@
+# Caso LÍMITE: casillas que solo se tocan en diagonal (no se unen) y empates
+A . A
+. B .
+A . A
+

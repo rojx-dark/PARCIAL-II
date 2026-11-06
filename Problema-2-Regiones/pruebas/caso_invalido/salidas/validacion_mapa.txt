@@ -1,0 +1,10 @@
+paleta.csv línea 5: formato inválido (C,incompleto)
+paleta.csv línea 3: el color 16A34A del símbolo 'B' no tiene formato #RRGGBB
+paleta.csv línea 4: símbolo 'A' repetido (definido antes en línea 2)
+paleta.csv: falta definir el símbolo '.' para el fondo
+mapa.txt línea 2 (fila 0, columna 2): símbolo '.' no definido en la paleta
+mapa.txt línea 3 (fila 1): tiene 3 columnas pero se esperaban 4
+mapa.txt línea 3 (fila 1, columna 1): símbolo '.' no definido en la paleta
+mapa.txt línea 3 (fila 1, columna 2): símbolo 'X' no definido en la paleta
+mapa.txt línea 4 (fila 2, columna 0): símbolo '.' no definido en la paleta
+mapa.txt línea 4 (fila 2, columna 1): símbolo '.' no definido en la paleta

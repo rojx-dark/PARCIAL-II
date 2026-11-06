@@ -1,0 +1,5 @@
+# Caso INVÁLIDO: filas de diferente longitud y símbolo X no definido en paleta
+A A . B
+A . X
+. . B B
+

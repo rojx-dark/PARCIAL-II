@@ -1,0 +1,3 @@
+Total de regiones: 5
+Mayor área (1): región 1 (A), región 2 (A), región 3 (B), región 4 (A), región 5 (A)
+Mayor perímetro (4): región 1 (A), región 2 (A), región 3 (B), región 4 (A), región 5 (A)
